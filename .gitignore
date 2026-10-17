@@ -3,3 +3,6 @@ __pycache__/
 .pytest_cache/
 .venv/
 output/*.db
+output/spark-*/
+.sparkStaging/
+spark-warehouse/

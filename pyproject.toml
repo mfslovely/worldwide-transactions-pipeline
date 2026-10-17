@@ -4,12 +4,16 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "worldwide-transactions-pipeline"
-version = "1.0.0"
-description = "Dependency-free synthetic worldwide transaction ETL pipeline"
+version = "2.0.0"
+description = "Synthetic worldwide transaction ETL pipelines for local Python and PySpark"
 requires-python = ">=3.10"
+
+[project.optional-dependencies]
+spark = ["pyspark==4.2.0"]
 
 [project.scripts]
 world-transactions = "world_transactions_pipeline.cli:main"
+world-transactions-spark = "world_transactions_pipeline.spark_cli:main"
 
 [tool.setuptools]
 package-dir = {"" = "src"}

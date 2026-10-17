@@ -5,7 +5,7 @@ on:
   pull_request:
 
 jobs:
-  test:
+  python-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -16,3 +16,19 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: Run pipeline smoke test
         run: python run_pipeline.py demo --count 100 --seed 42 --output-dir /tmp/world-transactions-output
+
+  spark-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - name: Install PySpark
+        run: python -m pip install -r requirements-spark.txt
+      - name: Run Spark integration test
+        run: python -m unittest discover -s tests -p "test_spark_integration.py" -v
