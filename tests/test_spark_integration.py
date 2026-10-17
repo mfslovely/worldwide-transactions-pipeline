@@ -25,5 +25,6 @@ class SparkIntegrationTests(unittest.TestCase):
                 summary["loaded_count"] + summary["rejected_count"], summary["extracted_count"]
             )
             self.assertGreater(summary["rejected_count"], 1)
+            self.assertGreater(summary["gross_volume_usd"], 0)
         finally:
             spark.stop()

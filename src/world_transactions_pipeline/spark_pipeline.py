@@ -153,7 +153,10 @@ def transform_transactions(raw: Any, account_hash_salt: str = "world-transaction
     )
     valid = classified.filter(F.col("rejection_reason").isNull())
     enriched = (
-        valid.withColumn("amount_usd", F.round(F.col("amount") * F.element_at(fx_map, "currency"), 2))
+        valid.withColumn(
+            "amount_usd",
+            F.round(F.col("amount") * F.element_at(fx_map, F.col("currency")), 2),
+        )
         .withColumn("is_cross_border", F.col("country") != F.col("counterparty_country"))
         .withColumn(
             "risk_score",
